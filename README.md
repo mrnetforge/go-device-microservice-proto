@@ -1,0 +1,1 @@
+# go-device-microservice-proto
