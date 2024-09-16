@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	DeviceGateway_Communicate_FullMethodName = "/device.DeviceGateway/Communicate"
+	DeviceGateway_SendCommand_FullMethodName = "/device.DeviceGateway/SendCommand"
 )
 
 // DeviceGatewayClient is the client API for DeviceGateway service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DeviceGatewayClient interface {
 	Communicate(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[DeviceMessage, DeviceMessage], error)
+	SendCommand(ctx context.Context, in *SendCommandRequest, opts ...grpc.CallOption) (*CommandResponse, error)
 }
 
 type deviceGatewayClient struct {
@@ -50,11 +52,22 @@ func (c *deviceGatewayClient) Communicate(ctx context.Context, opts ...grpc.Call
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type DeviceGateway_CommunicateClient = grpc.BidiStreamingClient[DeviceMessage, DeviceMessage]
 
+func (c *deviceGatewayClient) SendCommand(ctx context.Context, in *SendCommandRequest, opts ...grpc.CallOption) (*CommandResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CommandResponse)
+	err := c.cc.Invoke(ctx, DeviceGateway_SendCommand_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DeviceGatewayServer is the server API for DeviceGateway service.
 // All implementations must embed UnimplementedDeviceGatewayServer
 // for forward compatibility.
 type DeviceGatewayServer interface {
 	Communicate(grpc.BidiStreamingServer[DeviceMessage, DeviceMessage]) error
+	SendCommand(context.Context, *SendCommandRequest) (*CommandResponse, error)
 	mustEmbedUnimplementedDeviceGatewayServer()
 }
 
@@ -67,6 +80,9 @@ type UnimplementedDeviceGatewayServer struct{}
 
 func (UnimplementedDeviceGatewayServer) Communicate(grpc.BidiStreamingServer[DeviceMessage, DeviceMessage]) error {
 	return status.Errorf(codes.Unimplemented, "method Communicate not implemented")
+}
+func (UnimplementedDeviceGatewayServer) SendCommand(context.Context, *SendCommandRequest) (*CommandResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendCommand not implemented")
 }
 func (UnimplementedDeviceGatewayServer) mustEmbedUnimplementedDeviceGatewayServer() {}
 func (UnimplementedDeviceGatewayServer) testEmbeddedByValue()                       {}
@@ -96,13 +112,36 @@ func _DeviceGateway_Communicate_Handler(srv interface{}, stream grpc.ServerStrea
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
 type DeviceGateway_CommunicateServer = grpc.BidiStreamingServer[DeviceMessage, DeviceMessage]
 
+func _DeviceGateway_SendCommand_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendCommandRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DeviceGatewayServer).SendCommand(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DeviceGateway_SendCommand_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DeviceGatewayServer).SendCommand(ctx, req.(*SendCommandRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DeviceGateway_ServiceDesc is the grpc.ServiceDesc for DeviceGateway service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var DeviceGateway_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "device.DeviceGateway",
 	HandlerType: (*DeviceGatewayServer)(nil),
-	Methods:     []grpc.MethodDesc{},
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "SendCommand",
+			Handler:    _DeviceGateway_SendCommand_Handler,
+		},
+	},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "Communicate",

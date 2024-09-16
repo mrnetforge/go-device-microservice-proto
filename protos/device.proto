@@ -6,6 +6,12 @@ option go_package = "github.com/mrnetforge/go-device-microservice-proto";
 
 service DeviceGateway {
   rpc Communicate(stream DeviceMessage) returns (stream DeviceMessage) {}
+  rpc SendCommand(SendCommandRequest) returns (CommandResponse) {}
+}
+
+message SendCommandRequest {
+  string device_id = 1;
+  CommandRequest command_request = 2;
 }
 
 message DeviceMessage {
