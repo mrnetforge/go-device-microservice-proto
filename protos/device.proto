@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package device;
+
+option go_package = "github.com/mrnetforge/go-device-microservice-proto";
+
+service DeviceGateway {
+  rpc Communicate(stream DeviceMessage) returns (stream DeviceMessage) {}
+}
+
+message DeviceMessage {
+  string device_id = 1;
+
+  oneof payload {
+    Heartbeat heartbeat = 2;
+    CommandRequest command_request = 3;
+    CommandResponse command_response = 4;
+    StatusUpdate status_update = 5;
+  }
+}
+
+message Heartbeat {
+  int64 timestamp = 1;
+}
+
+message CommandRequest {
+  string command_id = 1;
+  string command_text = 2;
+}
+
+message CommandResponse {
+  string command_id = 1;
+  string output = 2;
+  bool success = 3;
+  string error_message = 4; // Optional
+}
+
+message StatusUpdate {
+  string status = 1;
+}

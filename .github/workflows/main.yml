@@ -13,3 +13,5 @@ jobs:
           fetch-depth: 0
       - name: Conventional Changelog Action
         uses: TriPSs/conventional-changelog-action@v5
+        with:
+          skip-version-file: true

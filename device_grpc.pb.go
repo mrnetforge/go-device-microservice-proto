@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v5.28.1
-// source: device.proto
+// source: protos/device.proto
 
-package device
+package go_device_microservice_proto
 
 import (
 	context "context"
@@ -111,5 +111,5 @@ var DeviceGateway_ServiceDesc = grpc.ServiceDesc{
 			ClientStreams: true,
 		},
 	},
-	Metadata: "device.proto",
+	Metadata: "protos/device.proto",
 }
