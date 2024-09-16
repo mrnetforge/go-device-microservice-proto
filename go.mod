@@ -1,4 +1,4 @@
-module github.com/mrnetforge/go-device-microservice/device
+module github.com/mrnetforge/go-device-microservice-proto
 
 go 1.21.5
 
