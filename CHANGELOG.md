@@ -1,3 +1,12 @@
+## [0.1.2](https://github.com/mrnetforge/go-device-microservice-proto/compare/v0.1.1...v0.1.2) (2024-09-16)
+
+
+### Bug Fixes
+
+* correct setup for gh ([f6f50ec](https://github.com/mrnetforge/go-device-microservice-proto/commit/f6f50ec2ff0c2ed08fc7cf8fe821dbaf7c8038e0))
+
+
+
 ## [0.1.1](https://github.com/mrnetforge/go-device-microservice-proto/compare/v0.1.0...v0.1.1) (2024-09-16)
 
 
