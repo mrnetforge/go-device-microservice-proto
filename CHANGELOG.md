@@ -1,3 +1,12 @@
+# [0.2.0](https://github.com/mrnetforge/go-device-microservice-proto/compare/v0.1.2...v0.2.0) (2024-09-16)
+
+
+### Features
+
+* add new method sendCommand ([f45cf38](https://github.com/mrnetforge/go-device-microservice-proto/commit/f45cf38e4f809b776362e0bfa167fc5ae9e0ac06))
+
+
+
 ## [0.1.2](https://github.com/mrnetforge/go-device-microservice-proto/compare/v0.1.1...v0.1.2) (2024-09-16)
 
 
