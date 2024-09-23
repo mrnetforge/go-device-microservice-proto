@@ -1,3 +1,12 @@
+# [0.3.0](https://github.com/mrnetforge/go-device-microservice-proto/compare/v0.2.0...v0.3.0) (2024-09-23)
+
+
+### Features
+
+* add new method GenerateConfig ([2aa602b](https://github.com/mrnetforge/go-device-microservice-proto/commit/2aa602b6f1ecb2d2f7ec8c173aacb5ab673b5609))
+
+
+
 # [0.2.0](https://github.com/mrnetforge/go-device-microservice-proto/compare/v0.1.2...v0.2.0) (2024-09-16)
 
 
