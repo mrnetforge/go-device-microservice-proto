@@ -7,6 +7,7 @@ option go_package = "github.com/mrnetforge/go-device-microservice-proto";
 service DeviceGateway {
   rpc Communicate(stream DeviceMessage) returns (stream DeviceMessage) {}
   rpc SendCommand(SendCommandRequest) returns (CommandResponse) {}
+  rpc GenerateConfig(GenerateConfigRequest) returns (GenerateConfigResponse) {}
 }
 
 message SendCommandRequest {
@@ -43,4 +44,13 @@ message CommandResponse {
 
 message StatusUpdate {
   string status = 1;
+}
+
+message GenerateConfigRequest {
+  string config_text = 1; // Long string for configuration
+}
+
+message GenerateConfigResponse {
+  bool success = 1;
+  string error_message = 2; // Optional
 }
