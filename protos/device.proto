@@ -48,6 +48,7 @@ message StatusUpdate {
 
 message GenerateConfigRequest {
   string config_text = 1; // Long string for configuration
+  string instance_text = 2;
 }
 
 message GenerateConfigResponse {
